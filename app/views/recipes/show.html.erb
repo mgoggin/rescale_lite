@@ -52,16 +52,17 @@
                     <span class="mt-1">
                       Question: <span class="text-gray-900"><%= question.content %></span>
                       <br />
+                      <% if question.answer.present? %>
+                        Answer: <span class="text-green-600 font-medium"><%= question.answer.content %></span>
+                      <% end %>
                     </span>
                   </span>
                 </td>
                 <td class="bg-gray-50 px-3 py-2 pr-6 w-full max-w-0 text-xs text-gray-400 sm:w-auto sm:max-w-none">
-                  <!-- add answer button here for brand users -->
+                  <%= render ButtonComponent.new(label: 'Answer', url: new_question_answers_path(question)) if question.answer.blank? && get_current_user.is_brand? %>
                 </td>
               </tr>
             <% end %>
-
-            <!-- insert q & a rows here -->
           <% end %>
         </tbody>
       </table>
