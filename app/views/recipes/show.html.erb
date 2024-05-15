@@ -37,9 +37,29 @@
                 <%= ingredient.notes %>
               </td>
               <td class="px-3 py-4 text-sm text-gray-700">
-                <!-- insert "add question" button here for coman users -->
+                <%= render ButtonComponent.new(label: 'Ask question', url: new_ingredient_question_path(ingredient)) unless get_current_user.is_brand? %>
               </td>
             </tr>
+
+            <% ingredient.questions.each do |question| %>
+              <tr>
+                <td colspan="3" class="bg-gray-50 pl-4 py-2 pr-3 w-full max-w-0 text-xs font-medium text-gray-500 sm:w-auto sm:max-w-none">
+                  <span class="inline-flex items-center">
+                    <svg class="h-4 w-4 ml-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M 3 3 L 3 12 C 3 14.749516 5.2504839 17 8 17 L 16 17 L 16 21 L 21 16 L 16 11 L 16 15 L 8 15 C 6.3315161 15 5 13.668484 5 12 L 5 3 L 3 3 z" fill="currentColor"/>
+                    </svg>
+
+                    <span class="mt-1">
+                      Question: <span class="text-gray-900"><%= question.content %></span>
+                      <br />
+                    </span>
+                  </span>
+                </td>
+                <td class="bg-gray-50 px-3 py-2 pr-6 w-full max-w-0 text-xs text-gray-400 sm:w-auto sm:max-w-none">
+                  <!-- add answer button here for brand users -->
+                </td>
+              </tr>
+            <% end %>
 
             <!-- insert q & a rows here -->
           <% end %>
